@@ -4,12 +4,28 @@ module.exports = {
   name: "reacciones",
   description: "Reacciona con emojis a palabras específicas usando comandos.",
   commands: [
-    "soky", "maicol", "olo", "stacy", "gigi", "diamantico", "hustle", "edwin",
-    "alexander", "cameron", "krampus", "joan", "amor", "bb", "bebe", "mia",
-    "cuero", "klk", "barry"
+    "soky",
+    "maicol",
+    "olo",
+    "stacy",
+    "gigi",
+    "diamantico",
+    "hustle",
+    "edwin",
+    "alexander",
+    "cameron",
+    "krampus",
+    "joan",
+    "amor",
+    "bb",
+    "bebe",
+    "mia",
+    "cuero",
+    "klk",
+    "barry",
   ],
   usage: `${PREFIX}<comando>`,
-  handle: async ({ command, sendReact, sendReply }) => {
+  handle: async ({ command, message, sendReact }) => {
     // Mapeo de comandos a emojis
     const reactions = {
       soky: "🏳️‍🌈",
@@ -33,15 +49,10 @@ module.exports = {
       barry: "🍄",
     };
 
-    // Verificar si el comando tiene una reacción
-    const emoji = reactions[command];
-    if (!emoji) {
-      await sendReply("Comando inválido. Usa uno de los comandos disponibles.");
-      return;
-    }
+    // Verificar si el comando es válido
+    if (!reactions[command]) return;
 
-    // Enviar la reacción al comando
-    await sendReact(emoji);
-    await sendReply(`Reaccioné con: ${emoji}`);
+    // Enviar la reacción al mensaje original
+    await sendReact(message.key, reactions[command]);
   },
 };
