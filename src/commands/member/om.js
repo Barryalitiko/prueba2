@@ -1,58 +1,50 @@
-const { PREFIX } = require("../../config");
+const { PREFIX } = require("../../config"); // Prefijo personalizado, por ejemplo: "#"
+
+const reactions = [
+  { match: "soky", reaction: "🏳️‍🌈" },
+  { match: "maicol", reaction: "🛵" },
+  { match: "olo", reaction: "🎸" },
+  { match: "stacy", reaction: "🕊️" },
+  { match: "gigi", reaction: "🧚‍♀️" },
+  { match: "diamantico", reaction: "🥊" },
+  { match: "hustle", reaction: "🤥" },
+  { match: "edwin", reaction: "🦄" },
+  { match: "alexander", reaction: "🫎" },
+  { match: "cameron", reaction: "🦐" },
+  { match: "krampus", reaction: "🦇" },
+  { match: "joan", reaction: "👨🏾‍🦽" },
+  { match: "amor", reaction: "🫦" },
+  { match: "bb", reaction: "💋" },
+  { match: "bebe", reaction: "💋" },
+  { match: "mia", reaction: "👀" },
+  { match: "cuero", reaction: "🧚‍♀️" },
+  { match: "klk", reaction: "🇩🇴" },
+  { match: "barry", reaction: "🍄" },
+];
 
 module.exports = {
-  name: "reacciones",
-  description: "Reacciona con emojis a palabras específicas usando comandos.",
-  commands: [
-    "soky",
-    "maicol",
-    "olo",
-    "stacy",
-    "gigi",
-    "diamantico",
-    "hustle",
-    "edwin",
-    "alexander",
-    "cameron",
-    "krampus",
-    "joan",
-    "amor",
-    "bb",
-    "bebe",
-    "mia",
-    "cuero",
-    "klk",
-    "barry",
-  ],
-  usage: `${PREFIX}<comando>`,
-  handle: async ({ command, message, sendReact }) => {
-    // Mapeo de comandos a emojis
-    const reactions = {
-      soky: "🏳️‍🌈",
-      maicol: "🛵",
-      olo: "🎸",
-      stacy: "🕊️",
-      gigi: "🧚‍♀️",
-      diamantico: "🥊",
-      hustle: "🤥",
-      edwin: "🦄",
-      alexander: "🫎",
-      cameron: "🦐",
-      krampus: "🦇",
-      joan: "👨🏾‍🦽",
-      amor: "🫦",
-      bb: "💋",
-      bebe: "💋",
-      mia: "👀",
-      cuero: "🧚‍♀️",
-      klk: "🇩🇴",
-      barry: "🍄",
-    };
+  name: "reaction",
+  description: "Reacciona a palabras clave específicas con prefijo",
+  handle: async ({ message, sendReact }) => {
+    const text = message.text?.toLowerCase(); // Convertir el mensaje a minúsculas
+    if (!text) return;
 
-    // Verificar si el comando es válido
-    if (!reactions[command]) return;
+    // Verificar si el mensaje contiene el prefijo seguido de una palabra clave
+    if (text.startsWith(PREFIX)) {
+      const keyword = text.slice(PREFIX.length).trim(); // Extraer la palabra clave después del prefijo
+      const reaction = reactions.find((r) => r.match === keyword);
 
-    // Enviar la reacción al mensaje original
-    await sendReact(message.key, reactions[command]);
+      if (reaction) {
+        try {
+          // Reaccionar usando sendReact
+          await sendReact(reaction.reaction);
+        } catch (error) {
+          console.error(
+            `Error al reaccionar con "${reaction.reaction}" a "${reaction.match}":`,
+            error
+          );
+        }
+      }
+    }
   },
 };
