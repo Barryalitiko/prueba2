@@ -1,4 +1,4 @@
-const reactions = [
+[
   { match: "soky", reaction: "🏳️‍🌈" },
   { match: "maicol", reaction: "🛵" },
   { match: "olo", reaction: "🎸" },
