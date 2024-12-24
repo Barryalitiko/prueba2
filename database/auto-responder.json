@@ -1,14 +1,33 @@
-[
-    {
-        "match": "Oi",
-        "answer": "Olá, tudo bem?"
-    },
-    {
-        "match": "Tudo bem",
-        "answer": "Estou bem, obrigado por perguntar"
-    },
-    {
-        "match": "Qual seu nome",
-        "answer": "Meu nome é Takeshi Bot"
+const reactions = [
+  { "match": "soky", "reaction": "🏳️‍🌈" },
+  { "match": "maicol", "reaction": "🛵" },
+  { "match": "olo", "reaction": "🎸" },
+  { "match": "stacy", "reaction": "🕊️" },
+  { "match": "gigi", "reaction": "🧚‍♀️" },
+  { "match": "diamantico", "reaction": "🥊" },
+  { "match": "hustle", "reaction": "🤥" },
+  { "match": "edwin", "reaction": "🦄" },
+  { "match": "alexander", "reaction": "🫎" },
+  { "match": "cameron", "reaction": "🦐" },
+  { "match": "krampus", "reaction": "🦇" },
+  { "match": "joan", "reaction": "👨🏾‍🦽" },
+  { "match": "amor", "reaction": "🫦" },
+  { "match": "bb", "reaction": "💋" },
+  { "match": "bebe", "reaction": "💋" },
+  { "match": "mia", "reaction": "👀" },
+  { "match": "cuero", "reaction": "🧚‍♀️" },
+  { "match": "klk", "reaction": "🇩🇴" },
+  { "match": "barry", "reaction": "🍄" },
+];
+
+module.exports = {
+  name: "reaction",
+  description: "Reacciona a mensajes específicos",
+  handle: async ({ message, sendReaction }) => {
+    const text = message.body.toLowerCase();
+    const reaction = reactions.find((reaction) => reaction.match === text);
+    if (reaction) {
+      await sendReaction(reaction.reaction);
     }
-]
+  },
+};
