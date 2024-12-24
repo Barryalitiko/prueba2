@@ -1,47 +1,26 @@
-// Definir el array de reacciones
-const reactions = [
-  { match: "soky", reaction: "🏳️‍🌈" },
-  { match: "maicol", reaction: "🛵" },
-  { match: "olo", reaction: "🎸" },
-  { match: "stacy", reaction: "🕊️" },
-  { match: "gigi", reaction: "🧚‍♀️" },
-  { match: "diamantico", reaction: "🥊" },
-  { match: "hustle", reaction: "🤥" },
-  { match: "edwin", reaction: "🦄" },
-  { match: "alexander", reaction: "🫎" },
-  { match: "cameron", reaction: "🦐" },
-  { match: "krampus", reaction: "🦇" },
-  { match: "joan", reaction: "👨🏾‍🦽" },
-  { match: "amor", reaction: "🫦" },
-  { match: "bb", reaction: "💋" },
-  { match: "bebe", reaction: "💋" },
-  { match: "mia", reaction: "👀" },
-  { match: "cuero", reaction: "🧚‍♀️" },
-  { match: "klk", reaction: "🇩🇴" },
-  { match: "barry", reaction: "🍄" }
-];
-
-module.exports = {
-  name: "reaction",
-  description: "Reacciona a mensajes específicos",
-  handle: async ({ message, socket, remoteJid }) => {
-    const text = message.text?.toLowerCase(); // Convertir el mensaje a minúsculas
-    if (!text) return;
-
-    // Buscar si el mensaje contiene alguna palabra del array
-    const reaction = reactions.find((r) => text.includes(r.match));
-    if (reaction) {
-      try {
-        // Reaccionar al mensaje
-        await socket.sendMessage(remoteJid, {
-          react: {
-            text: reaction.reaction,
-            key: message.key,
-          },
-        });
-      } catch (error) {
-        console.error(`Error al reaccionar con "${reaction.reaction}" a "${reaction.match}":`, error);
-      }
+[
+    {
+        "match": "hola",
+        "answer": "hola"
+    },
+    {
+        "match": "como esta",
+        "answer": "bien y tu"
+    },
+    {
+        "match": "bot",
+        "answer": "bot by krampus"
+    },
+    {
+        "match": "maicol",
+        "answer": "aun no compra los plasticos de la pasola 💔"
+    },
+    {
+        "match": "diamantico",
+        "answer": "tirenle un webo que se lo va a mamar"
+    },
+    {
+        "match": "olo",
+        "answer": "tocando la guitarra"
     }
-  },
-};
+]
